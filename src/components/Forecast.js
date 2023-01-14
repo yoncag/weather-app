@@ -1,4 +1,5 @@
 import React from 'react';
+import ForecastCard from './ForecastCard';
 
 /**
  * TODOs: 
@@ -69,23 +70,11 @@ const Forecast = () => {
         const isTodaysForecast = idx === 0;
         const size = isTodaysForecast ? undefined : 'small';
         return (
-          <div key={idx} className={'forecast__card' + (size ? ` forecast__card--${size}` : '')}>
-            <span className="forecast__info forecast__info--day">
-              {day.day}
-            </span>
-            <span className="forecast__info forecast__info--icon">
-              <img 
-                src={require(`../images/${day.image.src}.png`)} 
-                alt={day.image.alt} 
-              />
-            </span>
-            <span className="forecast__info forecast__info--temperature">
-              {day.temperature}
-            </span>
-            <span className="forecast__info forecast__info--description">
-              {day.description}
-            </span>
-          </div>
+          <ForecastCard 
+            key={idx} 
+            data={day} 
+            size={size} 
+          />
         );
       })}
     </div>
