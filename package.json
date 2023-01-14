@@ -2,8 +2,8 @@
   "name": "weather-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "",
-    "build": ""
+    "start": "webpack serve --node-env=development",
+    "build": "webpack --node-env=production"
   },
   "dependencies": {
     "react": "^18.2.0",
