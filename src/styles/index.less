@@ -42,3 +42,82 @@ body, #root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.forecast {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: @spacing;
+  background-color: @color-border;
+  border: @spacing solid @color-border;
+  border-radius: calc(@border-radius * 2);
+  & > :first-child {
+    grid-column: 1/-1;
+  }
+}
+
+.forecast__card {
+  display: grid;
+  grid-template-areas: 
+    "day day"
+    "icon temperature"
+    "icon description";
+  gap: @spacing;
+  justify-content: center;
+  background-color: @color-background;
+  border-radius: @border-radius;
+  padding: @spacing;
+  .forecast__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.forecast__info--day {
+      grid-area: day;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 50px;
+    }
+    &.forecast__info--icon {
+      grid-area: icon;
+      img {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+    &.forecast__info--temperature {
+      grid-area: temperature;
+      font-family: 'Teko', sans-serif;
+      font-weight: 400;
+      font-size: 152px;
+      &::after {
+        content: "°";
+      }
+    }
+    &.forecast__info--description {
+      grid-area: description;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 50px;
+    }
+  }
+}
+
+.forecast__card--small {
+  grid-template-areas: 
+    "day"
+    "icon"
+    "temperature";
+  .forecast__info {
+    &.forecast__info--day {
+      font-size: 40px;
+    }
+    &.forecast__info--icon {
+      max-width: 150px;
+    }
+    &.forecast__info--temperature {
+      font-size: 64px;
+    }
+    &.forecast__info--description {
+      display: none;
+    }
+  }
+}
