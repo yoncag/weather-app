@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevEnv = process.env.NODE_ENV === 'development';
@@ -8,6 +9,12 @@ module.exports = {
   entry: './src/index.js',
   resolve: {
     extensions: ['*', '.js'],
+  },
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: isDevEnv ? 'static/js/bundle.js' : 'static/js/[name].[contenthash:8].js',
+    assetModuleFilename: 'static/media/[name].[hash:8][ext]',
+    publicPath: '/',
   },
   devServer: {
     port: PORT,
