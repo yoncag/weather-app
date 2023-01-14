@@ -1,22 +1,54 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Forecast from './Forecast';
 
 /**
  * TODOs:
- * 1. Fetch data from the API and pass into Forecast component.
- * 2. Add a navigation component.
- * 3. Show error.
- * 4. Show loading indicator.
+ * 1. Add a navigation component.
+ * 2. Show error.
+ * 3. Show loading indicator.
  */
+
+const CONFIG = {
+  unit: 'metric',
+};
 
 class App extends Component {
   constructor() {
     super();
+    this.state = {
+      location: {
+        city: 'Ottawa',
+        countryCode: 'CA',
+      },
+      data: [],
+    };
+  }
+
+  async fetchForecastData({ city, countryCode }) {
+    try {
+      const response = await axios.get(`${process.env.API_URL}?q=${city},${countryCode}&units=${CONFIG.unit}&appid=${process.env.API_KEY}`);
+      if (response.data?.cod === '200') return response.data;
+    } catch(err) {
+      console.log('Error:', err);
+    }
+  }
+
+  async componentDidMount() {    
+    const data = await this.fetchForecastData({ 
+      city:        this.state.location.city, 
+      countryCode: this.state.location.countryCode,
+    });
+    if (data) this.setState({ data });
   }
   
   render() {
+    if (Object.keys(this.state.data).length === 0) {
+      return 'Loading...';
+    }
+
     return (
-      <Forecast />
+      <Forecast data={this.state.data} />
     );
   }
 }
