@@ -3,11 +3,7 @@ import axios from 'axios';
 import Nav from './Nav';
 import Forecast from './Forecast';
 import Loader from './Loader';
-
-/**
- * TODOs:
- * 1. Show error.
- */
+import Error from './Error';
 
 const CONFIG = {
   locations: [
@@ -24,6 +20,16 @@ const CONFIG = {
       countryCode: 'JP',
     },
   ],
+  error: {
+    noResponse: {
+      cod: 'Server Not Responding!',
+      message: 'This could be caused by an unreliable network connection, a timeout on the server, etc.',
+    },
+    fatal: {
+      cod: '500',
+      message: 'Something went wrong, please try again!',
+    },
+  },
   unit: 'metric',
 };
 
@@ -36,6 +42,7 @@ class App extends Component {
         countryCode: CONFIG.locations[0].countryCode,
       },
       data: [],
+      error: {},
     };
     this.handleLocationChange = this.handleLocationChange.bind(this);
   }
@@ -50,6 +57,25 @@ class App extends Component {
       if (response.data?.cod === '200') return response.data;
     } catch(err) {
       console.log('Error:', err);
+      if (err.response) {
+        this.setState({ 
+          error: err.response.data 
+        });
+      } else if (err.request) {
+        this.setState({
+          error: {
+            cod: CONFIG.error.noResponse.cod,
+            message: CONFIG.error.noResponse.message,
+          }
+        });
+      } else {
+        this.setState({
+          error: {
+            cod: CONFIG.error.fatal.cod,
+            message: CONFIG.error.fatal.message,
+          }
+        });
+      }
     }
   }
 
@@ -72,6 +98,9 @@ class App extends Component {
   }
 
   render() {
+    const hasError = Object.keys(this.state.error).length > 0;
+    if (hasError) return <Error error={this.state.error} />;
+
     const isLoading = Object.keys(this.state.data).length === 0;
     if (isLoading) return <Loader />;
 
