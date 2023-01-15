@@ -2,6 +2,7 @@
 @color-accent: #5FB0E8;
 @color-text: #333339;
 @color-border: #FFFFFF;
+@color-danger: #FF0000;
 @spacing: 8px;
 @border-radius: @spacing;
 
@@ -151,6 +152,7 @@ ul.nav {
   }
 }
 
+.error,
 .loader {
   display: flex;
   flex-direction: column;
@@ -159,6 +161,24 @@ ul.nav {
   width: 100vw;
   height: 100vh;
   row-gap: @spacing;
+}
+
+.error {
+  .error__code {
+    font-family: 'Teko', sans-serif;
+    font-weight: 400;
+    font-size: 64px;
+    letter-spacing: 1px;
+    color: @color-danger;
+  }
+  .error__message {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+  }
+}
+
+.loader {
   .loader__icon {
     background-image: url('../images/loader.svg');
     background-repeat: no-repeat;
