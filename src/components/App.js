@@ -47,7 +47,9 @@ class App extends Component {
     if (isLoading) return <Loader />;
 
     return (
-      <Forecast data={this.state.data} />
+      <div className="container">
+        <Forecast data={this.state.data} />
+      </div>
     );
   }
 }
