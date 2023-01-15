@@ -130,6 +130,27 @@ body, #root {
   }
 }
 
+ul.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 32px 0;
+  display: flex;
+  justify-content: space-evenly;
+  li.nav__item {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 52px;
+    cursor: pointer;
+    &:hover {
+      color: @color-accent;
+    }
+    &.nav__item--active {
+      font-weight: 700;
+      color: @color-accent;
+    }
+  }
+}
+
 .loader {
   display: flex;
   flex-direction: column;
