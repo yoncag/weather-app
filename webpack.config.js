@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const isDevEnv = process.env.NODE_ENV === 'development';
@@ -41,7 +42,7 @@ module.exports = {
       {
         test: /\.(less|css)$/,
         use: [
-          { loader: 'style-loader' },
+          isDevEnv ? 'style-loader' : MiniCssExtractPlugin.loader,
           { loader: 'css-loader' },
           { loader: 'less-loader' },
         ],
@@ -55,6 +56,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'static/css/[name].[contenthash:8].css',
     }),
     new Dotenv({
       path: './.env',
