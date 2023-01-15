@@ -121,3 +121,28 @@ body, #root {
     }
   }
 }
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  row-gap: @spacing;
+  .loader__icon {
+    background-image: url('../images/loader.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000000;
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+  }
+  .loader__message {
+    font-family: 'Teko', sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+}

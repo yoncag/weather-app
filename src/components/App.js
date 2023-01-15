@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Forecast from './Forecast';
+import Loader from './Loader';
 
 /**
  * TODOs:
  * 1. Add a navigation component.
  * 2. Show error.
- * 3. Show loading indicator.
  */
 
 const CONFIG = {
@@ -43,9 +43,8 @@ class App extends Component {
   }
   
   render() {
-    if (Object.keys(this.state.data).length === 0) {
-      return 'Loading...';
-    }
+    const isLoading = Object.keys(this.state.data).length === 0;
+    if (isLoading) return <Loader />;
 
     return (
       <Forecast data={this.state.data} />
